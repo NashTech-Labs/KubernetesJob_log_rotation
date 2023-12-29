@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{your-Job-name}}
+  namespace: {{your-namespace}}
+spec:
+  activeDeadlineSeconds: 300  # Set the maximum execution time for the job (adjust as needed)
+  backoffLimit: 4  # Number of retries before considering the Job as failed (adjust as needed)
+  template:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: {{your-container-name}}
+            image: {{your-container-image}}
+            volumeMounts:
+              - name: {{your-volume-name-one}}
+                mountPath: {{"/path/to/log/directory"}}
+              - name: {{your-volume-name-two}}
+                mountPath: {{"/path/to/log/directory-2"}}
+              # Add more volumeMounts as needed
+          restartPolicy: OnFailure
+          imagePullSecrets:
+            - name: {{your-image-pull-secret}}
+          volumes:
+            - name: {{your-volume-name-one}}
+              persistentVolumeClaim:
+                claimName: {{your-pvc-name-one}}
+            - name: {{your-volume-name-two}}
+              persistentVolumeClaim:
+                claimName: {{your-pvc-name-two}}
+              # Add more volumes as needed
