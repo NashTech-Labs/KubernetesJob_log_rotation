@@ -12,7 +12,7 @@ spec:
         spec:
           containers:
           - name: {{your-container-name}}
-            image: {{your-container-image}}
+            image: {{your-Log-Rotation-Image-Name}} #Create a log-rotation-image
             volumeMounts:
               - name: {{your-volume-name-one}}
                 mountPath: {{"/path/to/log/directory"}}
